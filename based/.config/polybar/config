@@ -1,0 +1,293 @@
+[settings]
+bg = #282a36
+bg2 = #44475a
+fg = #f8f8f2
+red = #ff5555
+green = #50fa7b
+yellow = #f1fa8c
+blue = #0084d4
+magenta = #bd93f9
+cyan = #8be9fd
+white = #ffffff
+
+[bar/bar1]
+monitor = ${env:MONITOR:}
+;------------;
+; DIMENSIONS ;
+;------------;
+
+width = 100%
+height = 30
+offset-y = 15
+offset-x = 1%
+
+radius = 0.0
+border-bottom-size = 0
+
+;----------;
+; LOCATION ;
+;----------;
+
+bottom = false
+override-redirect = false
+
+;-------;
+; FONTS ;
+;-------;
+
+font-0 = JetBrains Mono Nerd Font:Semibold:size=10.5;3
+#font-1 = ttf-alef Font:Semibold:size=10.5;3
+font-1 = DejaVu Sans:size=15.5;3
+;--------;
+; COLORS ;
+;--------;
+
+background = #282a36
+foreground = #f8f8f2
+border-color = 0
+
+;---------------;
+; MISCELLANEOUS ;
+;---------------;
+
+fixed-center = true
+padding = 1
+module-margin = 0
+overline-size = 6
+underline-size = 6.5
+
+
+modules-left = sep1 i3 sep2 
+#modules-left = sep1 i3 sep2 sep1 playerctl sep2
+#modules-center = sep1 title sep2
+
+modules-right = sep1 wireless-network sep2 sep1 xkeyboard sep2 sep1 volume sep3 battery sep2 sep1 date-time sep2
+#modules-right = sep1 wired-network sep3 wireless-network sep2 sep1 xkeyboard sep2 sep1 volume sep3 battery sep2 sep1 date-time sep2
+
+enable-ipc = true
+
+;---------;
+; MODULES ;
+;---------;
+
+
+[module/date-time]
+type = custom/script
+exec = TZ=Asia/Jerusalem date +"%a  %d-%m-%Y  %H:%M"
+interval = 1.0
+format-foreground = ${settings.green}
+format-background = ${settings.bg2}
+format-underline = ${settings.bg}
+format-overline = ${settings.bg}
+#format-padding = 1
+
+[module/volume]
+type = internal/pulseaudio
+format-volume = <ramp-volume> <label-volume>
+format-muted = <label-muted>
+label-volume = %percentage%%
+label-muted = ﱝ Muted
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+
+click-right = pavucontrol
+
+format-volume-background = ${settings.bg2}
+format-volume-foreground = ${settings.yellow}
+format-volume-underline = ${settings.bg}
+format-volume-overline = ${settings.bg}
+#format-volume-padding = 1
+format-muted-background = ${settings.bg2}
+format-muted-foreground = ${settings.red}
+format-muted-underline = ${settings.bg}
+format-muted-overline = ${settings.bg}
+#format-muted-padding = 1
+
+
+[module/wired-network]
+type = internal/network
+interface = enp3s0
+
+; label-connected =  Wired  %downspeed%  %upspeed%
+label-connected =  Wired
+; label-disconnected =  Disconnected
+label-disconnected = "" 
+
+format-connected-foreground = ${settings.magenta}
+format-connected-background = ${settings.bg2}
+format-connected-underline = ${settings.bg}
+format-connected-overline = ${settings.bg}
+#format-connected-padding = 1
+format-disconnected-foreground = ${settings.magenta}
+format-disconnected-background = ${settings.bg2}
+format-disconnected-underline = ${settings.bg}
+format-disconnected-overline = ${settings.bg}
+#format-disconnected-padding = 1
+
+[module/wireless-network]
+type = internal/network
+interface = wlp2s0
+label-connected = 直 %essid%
+
+#label-connected = 直 %essid%  %downspeed%  %upspeed%
+#label-disconnected = 睊 Disconnected
+label-disconnected = 睊 .    
+
+format-connected-foreground = ${settings.magenta}
+format-connected-background = ${settings.bg2}
+format-connected-underline = ${settings.bg}
+format-connected-overline = ${settings.bg}
+#format-connected-padding = 1
+format-disconnected-foreground = ${settings.magenta}
+format-disconnected-background = ${settings.bg2}
+format-disconnected-underline = ${settings.bg}
+format-disconnected-overline = ${settings.bg}
+#format-disconnected-padding = 1
+
+[module/battery]
+type = internal/battery
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <label-full>
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full =  100%
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+format-charging-background = ${settings.bg2}
+format-charging-foreground = ${settings.green}
+format-charging-underline = ${settings.bg}
+format-charging-overline = ${settings.bg}
+#format-charging-padding = 1
+format-discharging-background = ${settings.bg2}
+format-discharging-foreground = ${settings.green}
+format-discharging-underline = ${settings.bg}
+format-discharging-overline = ${settings.bg}
+#format-discharging-padding = 1
+format-full-background = ${settings.bg2}
+format-full-foreground = ${settings.green}
+format-full-underline = ${settings.bg}
+format-full-overline = ${settings.bg}
+#format-full-padding = 1
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+blacklist-2 = caps lock
+
+format = <label-layout>
+; format-spacing = 0
+
+label-layout =  %layout%
+
+format-background = ${settings.bg2}
+format-foreground = ${settings.cyan}
+format-underline = ${settings.bg}
+format-overline = ${settings.bg}
+#format-padding = 1
+
+[module/i3]
+type = internal/i3
+
+format = <label-state>
+label-focused = %icon%
+label-focused-foreground = ${settings.magenta}
+label-focused-background = ${settings.bg2}
+label-focused-overline = ${settings.bg}
+label-focused-underline = ${settings.bg}
+label-focused-padding = 1
+
+label-unfocused = %icon%
+label-unfocused-foreground = ${settings.blue}
+label-unfocused-background = ${settings.bg2}
+label-unfocused-overline = ${settings.bg}
+label-unfocused-underline = ${settings.bg}
+label-unfocused-padding = 1
+
+label-urgent = %icon%
+label-urgent-foreground = ${settings.red}
+label-urgent-background = ${settings.bg2}
+label-urgent-overline = ${settings.bg}
+label-urgent-underline = ${settings.bg}
+label-urgent-padding = 1
+
+label-visible = %icon%
+label-visible-foreground = ${settings.yellow}
+label-visible-background = ${settings.bg2}
+label-visible-overline = ${settings.bg}
+label-visible-underline = ${settings.bg}
+label-visible-padding = 1
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;ﭮ
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-9 = 10;
+ws-icon-default = 
+
+[module/title]
+type = internal/xwindow
+label-font = 0
+format = <label>
+label = %title%
+label-maxlen = 60
+format-background = ${settings.bg2}
+format-foreground = ${settings.cyan}
+format-underline = ${settings.bg}
+format-overline = ${settings.bg}
+
+[module/playerctl]
+type = custom/script
+exec = ~/.scripts/player.sh
+format = <label>
+tail = true
+interval = 1
+#format-padding = 1
+format-prefix = "  "
+format-background = ${settings.bg2}
+format-foreground = ${settings.green}
+format-underline = ${settings.bg}
+format-overline = ${settings.bg}
+
+[module/sep1]
+type = custom/text
+content-font = 4
+content = " "
+content-foreground = ${settings.bg2}
+content-underline = ${settings.bg}
+content-overline = ${settings.bg}
+
+[module/sep2]
+type = custom/text
+content-foreground = ${settings.bg2}
+content-font = 4
+content = " "
+content-underline = ${settings.bg}
+content-overline = ${settings.bg}
+
+[module/sep3]
+type = custom/text
+content-foreground = ${settings.bg2}
+content-font = 4
+content = "▇"
+content-underline = ${settings.bg}
+content-overline = ${settings.bg}
