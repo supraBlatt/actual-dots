@@ -6,7 +6,7 @@ set $browser firefox
 set $music spotify
 
 # gaps
-gaps inner 16
+gaps inner 5
 
 # borders
 for_window [class=".*"] border pixel 2
