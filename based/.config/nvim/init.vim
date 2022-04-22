@@ -21,6 +21,12 @@ Plug 'hrsh7th/nvim-cmp'
 
 Plug 'williamboman/nvim-lsp-installer'
 
+" treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" neovim tree 
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 
 call plug#end()
 
@@ -49,7 +55,7 @@ set incsearch
 nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
 nnoremap tn :tabnew<CR>
-nnoremap tc :tabclose<CR>
+\noremap tc :tabclose<CR>
 
 
 " Find files using Telescope command-line sugar.
@@ -58,6 +64,11 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 "nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fb <cmd>Telescope file_browser<cr>
+
+" nvim-tree
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
 
 " Lightline
 let g:lightline = {
@@ -118,7 +129,7 @@ lua << EOF
 EOF
 
 
-" nvim cmp
+" nvim-cmp stuff 
 set completeopt=menu,menuone,noselect
 
 lua <<EOF
@@ -158,10 +169,16 @@ lua <<EOF
       { name = 'buffer' },
     })
   })
-
 EOF
 
-
-
+" TREE SHITTER 
+lua << EOF
+  require('nvim-treesitter.configs').setup {
+    -- Modules and its options go here
+    highlight = { enable = true },
+    incremental_selection = { enable = true },
+    textobjects = { enable = true },
+  }
+EOF
 " Colorscheme
 colorscheme dracula
