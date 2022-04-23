@@ -9,7 +9,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'BurntSushi/ripgrep'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " LSP 
@@ -19,10 +18,13 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
 
-Plug 'williamboman/nvim-lsp-installer'
-
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" TODO vim surround
+" TODO harpoon
+" TODO wilder 
+" TODO luasnip
 
 " neovim tree 
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
@@ -55,7 +57,7 @@ set incsearch
 nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
 nnoremap tn :tabnew<CR>
-\noremap tc :tabclose<CR>
+noremap tc :tabclose<CR>
 
 
 " Find files using Telescope command-line sugar.
@@ -97,7 +99,7 @@ require('telescope').setup{
 require('telescope').load_extension('fzf')
 EOF
 
-" LSP - stolen from Deej and GC, thanks 
+" LSP - stolen from Teej and GC, thanks 
 lua << EOF
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
@@ -106,12 +108,12 @@ lua << EOF
         -- keybinds 
         on_attach = function()
         vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer=0})
-        --vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer=0})
-        --vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, {buffer=0})
-        --vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {buffer=0})
-        --vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, {buffer=0})
-        --vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, {buffer=0})
-        --vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>", {buffer=0})
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer=0})
+        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, {buffer=0})
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {buffer=0})
+        vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, {buffer=0})
+        vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, {buffer=0})
+        vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>", {buffer=0})
         end,
         autostart = true, capabilities = capabilities
     }
