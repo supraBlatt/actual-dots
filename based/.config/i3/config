@@ -26,22 +26,22 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec --no-startup-id kitty
 
 # start apps 
-bindsym $mod+n exec $browser
-bindsym $mod+m exec $music
-bindsym $mod+Shift+m exec discord
+bindsym $mod+n exec --no-startup-id $browser
+bindsym $mod+m exec --no-startup-id $music
+bindsym $mod+Shift+m exec --no-startup-id discord
 
 # kill focused window
 bindsym $mod+Shift+c kill
 
 # start rofi
-bindsym $mod+d exec rofi -no-lazy-grab -show drun -theme ~/.config/rofi/launchers/text/style_2.rasi
-bindsym $mod+w exec rofi -no-lazy-grab -show window -theme ~/.config/rofi/launchers/text/style_2.rasi
+bindsym $mod+d exec --no-startup-id rofi -no-lazy-grab -show drun -theme ~/.config/rofi/launchers/text/style_2.rasi
+bindsym $mod+w exec --no-startup-id rofi -no-lazy-grab -show window -theme ~/.config/rofi/launchers/text/style_2.rasi
 
 # start powermenu
-bindsym $mod+Escape exec ~/.config/rofi/powermenu/powermenu.sh
+bindsym $mod+Escape exec --no-startup-id ~/.config/rofi/powermenu/powermenu.sh
 
 # for my laptop - toggle synaptics touchpad
 bindsym $mod+T exec --no-startup-id touchpad_toggle.sh
@@ -138,7 +138,7 @@ for_window [class=(?i)Discord] focus
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+q exec i3-msg exit
+bindsym $mod+Shift+q exec --no-startup-id i3-msg exit
 
 mode "resize" {
         bindsym h resize shrink width 3 px or 3 ppt
@@ -156,13 +156,13 @@ bindsym $mod+r mode "resize"
 # autostart
 exec --no-startup-id handle_monitors.sh
 
-exec picom --experimental-backends --backend glx -b
+exec --no-startup-id picom --experimental-backends --backend glx -b
 # no idea why this launches polybar if it only edits $MONITORS
 exec --no-startup-id launch_polybar.sh & 
 #exec --no-startup-id polybar bar1 &
 exec --no-startup-id setxkbmap us,il -option grp:caps_toggle &
-exec xset s off -dpms &
-exec udiskie -Nt &
+exec --no-startup-id xset s off -dpms &
+exec --no-startup-id udiskie -Nt &
 exec --no-startup-id nm-applet
 exec --no-startup-id dunst &
 exec --no-startup-id feh --bg-fill ~/Downloads/wallpapers/city2.jpg 
