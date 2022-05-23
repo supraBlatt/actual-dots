@@ -3,6 +3,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'itchyny/lightline.vim'
 Plug 'dracula/vim'
+Plug 'sainnhe/sonokai'
+
+
 Plug 'itchyny/vim-gitbranch'
 
 " telescope
@@ -20,6 +23,10 @@ Plug 'hrsh7th/nvim-cmp'
 
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" debugger --- LEARN HOW TO USE  
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
 
 " TODO vim surround
 " TODO harpoon
@@ -81,7 +88,7 @@ let g:lightline = {
     \ 'component_function': {
     \   'gitbranch': 'Branch'
     \ },
-    \ 'colorscheme': 'dracula',
+    \ 'colorscheme': 'sonokai',
     \ }
 function! Branch()
     return gitbranch#name() != '' ? ' ' . gitbranch#name() : ''
@@ -183,4 +190,8 @@ lua << EOF
   }
 EOF
 " Colorscheme
-colorscheme dracula
+
+let g:sonokai_style = 'andromeda'
+let g:sonokai_better_performance = 1
+
+colorscheme sonokai
