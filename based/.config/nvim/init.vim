@@ -79,7 +79,7 @@ set nofoldenable
 noremap <Space> <Nop>
 let mapleader="\<Space>"
 
-nnoremap <silent> y y$
+" nnoremap <silent> y y$
 nnoremap <silent> <leader>` <c-^>
 nnoremap <silent> <esc> <esc>:nohlsearch<cr>
 nnoremap <silent> <leader><leader> :gfiles<cr>
