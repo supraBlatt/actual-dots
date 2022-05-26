@@ -112,7 +112,7 @@ nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-https://www.youtube.com/watch?v=F5tSoaJ93acnnoremap <leader>f <cmd>Telescope file_browser hidden=true<cr>
+nnoremap <leader>f <cmd>Telescope file_browser hidden=true<cr>
 
 " nvim-tree
 nnoremap <c-n> :nvimtreetoggle<cr>
