@@ -1,11 +1,15 @@
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'itchyny/lightline.vim'
+" themes
 Plug 'dracula/vim'
 Plug 'sainnhe/sonokai'
 
+" lightline
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 
+" git 
 Plug 'itchyny/vim-gitbranch'
 
 " telescope
@@ -13,6 +17,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 " LSP 
 Plug 'neovim/nvim-lspconfig'
@@ -28,7 +33,13 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 
-" TODO vim surround
+" QUALITY SHIT
+Plug 'justinmk/vim-sneak'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+" Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+
 " TODO harpoon
 " TODO wilder 
 " TODO luasnip
@@ -59,34 +70,75 @@ set autoread
 set backspace=indent,eol,start
 set scrolloff=1
 set incsearch
+set clipboard^=unnamed,unnamedplus
+set virtualedit=block
+set foldmethod=indent
+set nofoldenable
 
-" Switch Tabs
-nnoremap tl :tabnext<CR>
-nnoremap th :tabprev<CR>
-nnoremap tn :tabnew<CR>
-noremap tc :tabclose<CR>
+" Stolen from ARC (gay?)
+noremap <Space> <Nop>
+let mapleader="\<Space>"
 
+nnoremap <silent> y y$
+nnoremap <silent> <leader>` <c-^>
+nnoremap <silent> <esc> <esc>:nohlsearch<cr>
+nnoremap <silent> <leader><leader> :gfiles<cr>
+nnoremap <silent> <leader>. :files<cr>
+nnoremap <silent> <leader>/ :rg<cr>
+nnoremap <silent> <leader>< :buffers<cr>
+nnoremap <silent> <leader>bb :buffers<cr>
+nnoremap <silent> <leader>gg :gedit :<cr>
+nnoremap <silent> <leader>ot :terminal<cr>
+nnoremap <silent> <leader>fs :w<cr>
+nnoremap <silent> <leader>qq :qa<cr>
+nnoremap <silent> <leader>qq :qa!<cr>
+nnoremap <silent> zx :bd<cr>
 
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <silent> <leader>wq <c-w>q
+nnoremap <silent> <leader>wv <c-w>v<c-w>w
+nnoremap <silent> <leader>ws <c-w>s<c-w>w
+nnoremap <silent> <leader>wh <c-w>h
+nnoremap <silent> <leader>wj <c-w>j
+nnoremap <silent> <leader>wk <c-w>k
+nnoremap <silent> <leader>wl <c-w>l
+nnoremap <silent> <leader>wh <c-w>h
+nnoremap <silent> <leader>wj <c-w>j
+nnoremap <silent> <leader>wk <c-w>k
+nnoremap <silent> <leader>wl <c-w>l
+nnoremap <silent> <leader>wmm <c-w>o
+
+" find files using telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-"nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fb <cmd>Telescope file_browser<cr>
+https://www.youtube.com/watch?v=F5tSoaJ93acnnoremap <leader>f <cmd>Telescope file_browser hidden=true<cr>
 
 " nvim-tree
-nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
+nnoremap <c-n> :nvimtreetoggle<cr>
+nnoremap <leader>r :nvimtreerefresh<cr>
+nnoremap <leader>n :nvimtreefindfile<cr>
 
-" Lightline
+
+
+" lightline
 let g:lightline = {
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'filename', 'gitbranch', 'readonly', 'modified' ] ]
     \ },
+    \ 'tabline': {
+    \   'left': [ ['buffers'] ],
+    \   'right': [ ['close'] ]
+    \ },
+    \ 'component_expand': {
+    \   'buffers': 'lightline#bufferline#buffers'
+    \ },
+    \ 'component_type': {
+    \   'buffers': 'tabsel'
+    \ },
     \ 'component_function': {
-    \   'gitbranch': 'Branch'
+    \   'gitbranch': 'branch'
     \ },
     \ 'colorscheme': 'sonokai',
     \ }
@@ -94,6 +146,15 @@ function! Branch()
     return gitbranch#name() != '' ? ' ' . gitbranch#name() : ''
 endfunction
 
+" wilder 
+" call wilder#setup({'modes': [':', '/', '?']})
+
+" call wilder#set_option('pipeline', [
+"           \   wilder#branch(
+"           \     wilder#cmdline_pipeline(),
+"           \     wilder#search_pipeline(),
+"           \   ),
+"           \ ])
 
 " TELESCOPE THINGS
 lua << EOF
@@ -104,6 +165,7 @@ require('telescope').setup{
 
 }
 require('telescope').load_extension('fzf')
+require("telescope").load_extension "file_browser"
 EOF
 
 " LSP - stolen from Teej and GC, thanks 
