@@ -1,0 +1,22 @@
+# ~/.config/starship.toml
+[character]
+error_symbol = "[](bold red)"
+success_symbol = "[](bold green)"
+vicmd_symbol = "[](bold yellow)"
+format = "↪  $symbol [|](bold bright-black) "
+
+[username]
+style_user = "bold purple"
+disabled = false
+show_always = true
+
+[directory]
+truncation_length = 1
+truncation_symbol = ".../"
+style = "cyan"
+
+[git_branch]
+style = "bold red"
+
+[haskell]
+format = "via [$symbol]($style)"

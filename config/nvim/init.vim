@@ -38,11 +38,23 @@ Plug 'justinmk/vim-sneak'
 Plug 'wellle/targets.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-" Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " TODO harpoon
 " TODO wilder 
 " TODO luasnip
+
+
+" forknite battle pass
+   " /|
+  " / | 
+ " /  |
+ " \  |
+  " \ |
+   " ||
+   " ||
+   " ||
+   " ||
 
 " neovim tree 
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
@@ -57,7 +69,7 @@ set expandtab
 set hidden
 set smartcase
 set noshowmode
-set mouse=a
+"set mouse=a
 set shiftwidth=4
 set tabstop=2
 set softtabstop=2
@@ -74,6 +86,12 @@ set clipboard^=unnamed,unnamedplus
 set virtualedit=block
 set foldmethod=indent
 set nofoldenable
+set nowrap
+
+map <UP> <NOP>
+map <DOWN> <NOP>
+map <LEFT> <NOP>
+map <RIGHT> <NOP>
 
 " Stolen from ARC (gay?)
 noremap <Space> <Nop>
@@ -112,7 +130,7 @@ nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>f <cmd>Telescope file_browser hidden=true<cr>
+nnoremap <leader>fe <cmd>Telescope file_browser hidden=true<cr>
 
 " nvim-tree
 nnoremap <c-n> :nvimtreetoggle<cr>
@@ -146,15 +164,21 @@ function! Branch()
     return gitbranch#name() != '' ? ' ' . gitbranch#name() : ''
 endfunction
 
-" wilder 
-" call wilder#setup({'modes': [':', '/', '?']})
+" wilder
+call wilder#setup({'modes': [':', '/', '?']})
 
-" call wilder#set_option('pipeline', [
-"           \   wilder#branch(
-"           \     wilder#cmdline_pipeline(),
-"           \     wilder#search_pipeline(),
-"           \   ),
-"           \ ])
+
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     wilder#cmdline_pipeline({
+      \       'fuzzy': 1,
+      \       'set_pcre2_pattern': 1,
+      \     }),
+      \     wilder#python_search_pipeline({
+      \       'pattern': 'fuzzy',
+      \     }),
+      \   ),
+      \ ])
 
 " TELESCOPE THINGS
 lua << EOF
@@ -183,6 +207,8 @@ lua << EOF
         vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, {buffer=0})
         vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, {buffer=0})
         vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>", {buffer=0})
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {buffer=0})
+        vim.keymap.set("n", "<leader>fr", vim.lsp.buf.formatting, {buffer=0})
         end,
         autostart = true, capabilities = capabilities
     }
@@ -222,7 +248,12 @@ lua <<EOF
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['CR'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true, }),
+      ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      ['<C-p>'] = cmp.mapping.select_prev_item({ behavior =cmp.SelectBehavior.Insert }),
+      ['<Down>'] =cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
