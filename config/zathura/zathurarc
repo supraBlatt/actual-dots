@@ -1,12 +1,6 @@
+# colors stolen from Arc:tm:
 set window-title-basename "true"
 set selection-clipboard "clipboard"
-
-# Dracula color theme for Zathura
-# Swaps Foreground for Background to get a light version if the user prefers
-
-#
-# Dracula color theme
-#
 
 set notification-error-bg       "#AC4142" # Red
 set notification-error-fg       "#151515" # Foreground
