@@ -20,3 +20,5 @@ general info
 - bar: polybar
 ```
 Feel free to have a look and steal whatever you think is pretty :D
+
+One day I will get rounded corners.. one day.
