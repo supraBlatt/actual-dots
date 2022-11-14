@@ -3,6 +3,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " themes
 Plug 'sainnhe/sonokai'
+Plug 'Mofiqul/dracula.nvim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 " lightline
 Plug 'itchyny/lightline.vim'
@@ -60,7 +62,7 @@ call plug#end()
    " ||
 
 " Set Statements
-set relativenumber
+" set relativenumber
 set number
 set expandtab
 set hidden
@@ -122,7 +124,8 @@ nnoremap <silent> <leader>wl <c-w>l
 nnoremap <silent> <leader>wmm <c-w>o
 
 " find files using telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
+nnoremap <leader>ft <cmd>Telescope find_files hidden=true<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
@@ -276,4 +279,6 @@ EOF
 let g:sonokai_style = 'atlantis'
 let g:sonokai_better_performance = 1
 
+" colorscheme dracula
 colorscheme sonokai
+" colorscheme tokyonight-storm
