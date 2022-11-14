@@ -2,7 +2,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " themes
-Plug 'dracula/vim'
 Plug 'sainnhe/sonokai'
 
 " lightline
@@ -13,9 +12,10 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'itchyny/vim-gitbranch'
 
 " telescope
-Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 
@@ -25,6 +25,8 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*'}
+Plug 'saadparwaiz1/cmp_luasnip'
 
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -33,17 +35,18 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 
-" QUALITY SHIT
+" QoL
 Plug 'justinmk/vim-sneak'
 Plug 'wellle/targets.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'lukas-reineke/indent-blankline.nvim'
 
-" TODO harpoon
-" TODO wilder 
-" TODO luasnip
-
+" neovim tree 
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+call plug#end()
 
 " forknite battle pass
    " /|
@@ -56,12 +59,6 @@ Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
    " ||
    " ||
 
-" neovim tree 
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
-
-call plug#end()
-
 " Set Statements
 set relativenumber
 set number
@@ -69,11 +66,9 @@ set expandtab
 set hidden
 set smartcase
 set noshowmode
-"set mouse=a
 set shiftwidth=4
-set tabstop=2
+set tabstop=4
 set softtabstop=2
-"set completeopt-=preview
 set updatetime=100
 set background=dark
 set termguicolors
@@ -88,6 +83,7 @@ set foldmethod=indent
 set nofoldenable
 set nowrap
 
+" bye 
 map <UP> <NOP>
 map <DOWN> <NOP>
 map <LEFT> <NOP>
@@ -133,13 +129,13 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fe <cmd>Telescope file_browser hidden=true<cr>
 
 " nvim-tree
-nnoremap <c-n> :nvimtreetoggle<cr>
-nnoremap <leader>r :nvimtreerefresh<cr>
-nnoremap <leader>n :nvimtreefindfile<cr>
+nnoremap <c-n> :NvimTreeToggle<cr>
+nnoremap <leader>r :NvimTreeRefresh<cr>
+lua << EOF
+require("nvim-tree").setup()
+EOF
 
-
-
-" lightline
+"" lightline
 let g:lightline = {
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
@@ -164,10 +160,8 @@ function! Branch()
     return gitbranch#name() != '' ? ' ' . gitbranch#name() : ''
 endfunction
 
-" wilder
+"" wilder
 call wilder#setup({'modes': [':', '/', '?']})
-
-
 call wilder#set_option('pipeline', [
       \   wilder#branch(
       \     wilder#cmdline_pipeline({
@@ -180,19 +174,21 @@ call wilder#set_option('pipeline', [
       \   ),
       \ ])
 
-" TELESCOPE THINGS
+"" telescope 
 lua << EOF
 require('telescope').setup{
     defaults = {
-        prompt_prefix = "❯ "
+        prompt_prefix = " | "
     }
-
 }
+
+require("telescope").load_extension("ui-select")
 require('telescope').load_extension('fzf')
-require("telescope").load_extension "file_browser"
+require("telescope").load_extension("file_browser")
 EOF
 
-" LSP - stolen from Teej and GC, thanks 
+
+"" LSP - stolen from Teej and GC, thanks 
 lua << EOF
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
@@ -202,22 +198,27 @@ lua << EOF
         on_attach = function()
         vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer=0})
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, {buffer=0})
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {buffer=0})
         vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, {buffer=0})
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {buffer=0})
+        vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {buffer=0})
         vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, {buffer=0})
         vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, {buffer=0})
         vim.keymap.set("n", "<leader>dl", "<cmd>Telescope diagnostics<cr>", {buffer=0})
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {buffer=0})
         vim.keymap.set("n", "<leader>fr", vim.lsp.buf.formatting, {buffer=0})
+        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, {buffer=0})
         end,
-        autostart = true, capabilities = capabilities
+        autostart = true, capabilities = capab
     }
 
     local configs = {
         clangd = default,
         pyright = default,
         gopls = default,
-        bashls = default
+        bashls = default,
+        vimls = default, 
+        hls = default
     }
 
     for server, opts in pairs(configs) do
@@ -226,17 +227,15 @@ lua << EOF
 EOF
 
 
-" nvim-cmp stuff 
+"" nvim-cmp
 set completeopt=menu,menuone,noselect
-
 lua <<EOF
-  -- Setup nvim-cmp.
+  -- default config
   local cmp = require'cmp'
-
   cmp.setup({
     snippet = {
       expand = function(args)
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('luasnip').lsp_expand(args.body)
       end,
     },
     window = {
@@ -248,16 +247,16 @@ lua <<EOF
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-      ['CR'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true, }),
-      ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-      ['<C-p>'] = cmp.mapping.select_prev_item({ behavior =cmp.SelectBehavior.Insert }),
-      ['<Down>'] =cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), 
+      ['<Tab>'] = cmp.mapping.select_next_item()
+      -- ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+      -- ['<C-p>'] = cmp.mapping.select_prev_item({ behavior =cmp.SelectBehavior.Insert }),
+      -- ['<Down>'] =cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      -- ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'luasnip' }, 
     }, {
       { name = 'buffer' },
     })
@@ -273,18 +272,8 @@ lua <<EOF
   })
 EOF
 
-" TREE SHITTER 
-lua << EOF
-  require('nvim-treesitter.configs').setup {
-    -- Modules and its options go here
-    highlight = { enable = true },
-    incremental_selection = { enable = true },
-    textobjects = { enable = true },
-  }
-EOF
-" Colorscheme
-
-let g:sonokai_style = 'andromeda'
+"" Colors
+let g:sonokai_style = 'atlantis'
 let g:sonokai_better_performance = 1
 
 colorscheme sonokai
