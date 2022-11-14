@@ -20,5 +20,8 @@ general info
 - bar: polybar
 ```
 Feel free to have a look and steal whatever you think is pretty :D
-
+if you wish to steal all (I should probably divide this into stow packages)
+```
+stow --target=/home/$username/.config config
+```
 `One day I will get rounded corners.. one day.`
