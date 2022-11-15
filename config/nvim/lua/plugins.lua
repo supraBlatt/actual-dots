@@ -15,7 +15,6 @@ packer.startup(function(use)
 
   -- git
   -- use('itchyny/vim-gitbranch')
-
   use(require("plug-conf/alpha"))
   use(require("plug-conf/bufferline")) -- shows buffers as tabs. can remove?
   use(require("plug-conf/comment"))
@@ -31,6 +30,8 @@ packer.startup(function(use)
   use(require("plug-conf/toggleterm"))
   use(require("plug-conf/which-key"))
 
+  use(require("plug-conf/tree-shitter"))
+  -- use(require("lsp-conf"))
   -- LSP
   -- use('neovim/nvim-lspconfig')
   -- use('hrsh7th/cmp-nvim-lsp')
