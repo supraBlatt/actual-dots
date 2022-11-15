@@ -37,6 +37,4 @@ local options_global = {
   foldmethod = 'indent',
 }
 
-cmd("let g:sonokai_style = 'atlantis'")
-cmd("let g:sonokai_better_performance = 1")
 set_options(opt,options_global)

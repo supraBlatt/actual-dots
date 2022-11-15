@@ -69,7 +69,7 @@ _G.symbols = {
 
 require('plugins')
 require('settings/options')
-require('autocmd')
+-- require('autocmd')
 
 local keymap = vim.keymap.set
 local silent_noremap = { silent = true, noremap = true }
