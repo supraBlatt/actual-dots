@@ -2,33 +2,33 @@ local function config()
   local cmp = require("cmp")
   require("luasnip.loaders.from_vscode").lazy_load()
 
-  local kind_icons = {
-    Class = symbols.Class,
-    Color = symbols.Color,
-    Constant = symbols.Constant,
-    Constructor = symbols.Constructor,
-    Enum = symbols.Enum,
-    EnumMember = symbols.EnumMember,
-    Event = symbols.Event,
-    Field = symbols.Field,
-    File = symbols.File,
-    Folder = symbols.Folder,
-    Function = symbols.Function,
-    Interface = symbols.Interface,
-    Keyword = symbols.Keyword,
-    Method = symbols.Method,
-    Module = symbols.Module,
-    Operator = symbols.Operator,
-    Property = symbols.Property,
-    Reference = symbols.Reference,
-    Snippet = symbols.Snippet,
-    Struct = symbols.Struct,
-    Text = symbols.Text,
-    TypeParameter = symbols.TypeParameter,
-    Unit = symbols.Unit,
-    Value = symbols.Value,
-    Variable = symbols.Variable,
-  }
+local kind_icons = {
+  Class = symbols.Class,
+  Color = symbols.Color,
+  Constant = symbols.Constant,
+  Constructor = symbols.Constructor,
+  Enum = symbols.Enum,
+  EnumMember = symbols.EnumMember,
+  Event = symbols.Event,
+  Field = symbols.Field,
+  File = symbols.File,
+  Folder = symbols.Folder,
+  Function = symbols.Function,
+  Interface = symbols.Interface,
+  Keyword = symbols.Keyword,
+  Method = symbols.Method,
+  Module = symbols.Module,
+  Operator = symbols.Operator,
+  Property = symbols.Property,
+  Reference = symbols.Reference,
+  Snippet = symbols.Snippet,
+  Struct = symbols.Struct,
+  Text = symbols.Text,
+  TypeParameter = symbols.TypeParameter,
+  Unit = symbols.Unit,
+  Value = symbols.Value,
+  Variable = symbols.Variable,
+}
 
   cmp.setup({
     snippet = {
@@ -52,28 +52,22 @@ local function config()
       ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
     }),
     formatting = {
-      fields = { "kind", "abbr", "menu" },
-      format = function(entry, vim_item)
-        vim_item.kind = kind_icons[vim_item.kind]
-        vim_item.menu = ({
-          nvim_lsp = "",
-          nvim_lua = "",
-          luasnip = "",
-          buffer = "",
-          path = "",
-          emoji = "",
-        })[entry.source.name]
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      vim_item.kind = kind_icons[vim_item.kind]
+      vim_item.menu = ({
+        nvim_lsp = "",
+        nvim_lua = "",
+        luasnip = "",
+        buffer = "",
+        path = "",
+        emoji = "",
+      })[entry.source.name]
 
-        if entry.source.name == "copilot" then
-          vim_item.kind = symbols.Copilot
-          vim_item.kind_hl_group = "CmpItemKindCopilot"
-        end
-
-        return vim_item
-      end,
+      return vim_item
+    end,
     },
     sources = {
-      { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "nvim_lua" },
       { name = "luasnip" },
@@ -97,32 +91,6 @@ end
 
 return {
   {
-    "github/copilot.vim",
-    opt = true,
-  },
-  {
-    "zbirenbaum/copilot.lua",
-    event = { "VimEnter" },
-    requires = { "zbirenbaum/copilot-cmp" },
-    config = function()
-      vim.opt.runtimepath:append(store.node_16 .. "/bin")
-      vim.defer_fn(function()
-        require("copilot").setup({
-          ft_disable = { "help", "dashboard", "dap-repl" },
-          copilot_node_command = store.node_16 .. "/bin/node",
-        })
-      end, 100)
-    end,
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua", "nvim-cmp" },
-    module = "copilot_cmp",
-    config = function()
-      require("copilot_cmp").setup()
-    end,
-  },
-  {
     "hrsh7th/nvim-cmp",
     deps = { "cmp", "luasnip" },
     config = config,
@@ -135,7 +103,6 @@ return {
       "hrsh7th/cmp-path",
       "rafamadriz/friendly-snippets",
       "saadparwaiz1/cmp_luasnip",
-      "zbirenbaum/copilot-cmp",
     },
   },
 }
