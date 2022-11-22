@@ -11,7 +11,7 @@ local function config_project()
   local telescope = require("telescope")
   telescope.load_extension("projects")
   telescope.load_extension("file_browser")
-  require("which-key").register({ ["<leader>fp"] = { ":Telescope projects<CR>", "Find projects" } })
+  -- require("which-key").register({ ["<leader>fp"] = { ":Telescope projects<CR>", "Find projects" } })
 end
 
 local function config_telescope()

@@ -31,8 +31,8 @@ packer.init({
 -- Plugins go here
 packer.startup(function(use)
   use('wbthomason/packer.nvim')
-  -- use({ 'folke/tokyonight.nvim', branch = 'main' }) 
- 
+  -- use({ 'folke/tokyonight.nvim', branch = 'main' })
+
   -- use('itchyny/vim-gitbranch')
   use(require("plug-conf/alpha"))
   use(require("plug-conf/bufferline")) -- shows buffers as tabs. can remove?
@@ -49,16 +49,9 @@ packer.startup(function(use)
   use(require("plug-conf/tree-shitter"))
   use(require("plug-conf/which-key"))
 
-
+  use(require("plug-conf/lspconfig"))
   use(require("plug-conf/cmp"))
-  use(require("lsp-conf"))
-  -- LSP
-  -- use('neovim/nvim-lspconfig')
-  -- use('hrsh7th/cmp-nvim-lsp')
-  -- use('hrsh7th/cmp-buffer')
-  -- use('hrsh7th/cmp-path')
-  -- use('hrsh7th/nvim-cmp')
-  -- use('saadparwaiz1/cmp_luasnip')
+  --  use(require("lsp-conf"))
 
   -- -- QoL
   -- use('justinmk/vim-sneak')

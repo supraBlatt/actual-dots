@@ -35,6 +35,7 @@ local options_global = {
   clipboard = 'unnamedplus',
   virtualedit = 'block',
   foldmethod = 'indent',
+  cmdheight = 0,
 }
 
 set_options(opt,options_global)

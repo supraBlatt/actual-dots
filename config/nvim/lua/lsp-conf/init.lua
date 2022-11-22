@@ -16,7 +16,6 @@ local servers = {
 Basic = {}
 ---@type table<table>
 local extended = {}
-
 for _, server in ipairs(servers) do
   local opts_ok, server_opts = pcall(require, "lsp-conf.settings." .. server)
   local extended_opts = opts_ok and server_opts.extended
