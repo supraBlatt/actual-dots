@@ -31,3 +31,6 @@ then
     --output $hdmi_monitor --right-of $dp_monitor 
     echo "2 on"
 fi
+
+# handle polybars. kinda coupled for now.. 
+launch_polybar.sh

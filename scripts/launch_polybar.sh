@@ -1,9 +1,14 @@
 #!/bin/bash
 
-if type "xrandr"; then
-  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --reload bar1 &
-  done
-else
-  polybar --reload bar1 &
-fi
+# Kill all existing polybars 
+if pgrep -x polybar > /dev/null; then 
+  killall polybar
+fi 
+
+# Check which monitors are connected
+monitors=$(xrandr -q | grep " connected" | cut -d" " -f1) 
+
+# Launch polybar on each connected monitor 
+for monitor in $monitors; do 
+  MONITOR="$monitor" polybar bar1 & disown
+done
