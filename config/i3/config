@@ -158,7 +158,7 @@ bindsym $mod+r mode "resize"
 # autostart
 exec --no-startup-id handle_monitors.sh
 exec --no-startup-id picom --experimental-backends --backend glx -b
-#exec --no-startup-id launch_polybar.sh & 
+exec --no-startup-id launch_polybar.sh & 
 #exec --no-startup-id polybar bar1 &
 exec --no-startup-id setxkbmap us,il -option grp:caps_toggle &
 exec --no-startup-id xset s off -dpms &

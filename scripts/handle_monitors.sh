@@ -33,4 +33,4 @@ then
 fi
 
 # handle polybars. kinda coupled for now.. 
-launch_polybar.sh
+#launch_polybar.sh
