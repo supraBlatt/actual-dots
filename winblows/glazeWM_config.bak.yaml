@@ -1,16 +1,17 @@
+# change name to config.yaml and move to username\.glaze-wm
 gaps:
   inner_gap: 5 
-  outer_gap: 5
+  outer_gap: 6
 
 bar:
   height: 26 
   position: "top"
-  opacity: 0.7
+  opacity: 1.0
   background: "#282a36"
   foreground: "#f8f8f2"
   font_family: "JetBrains Mono"
   font_size: "12"
-  font_weight: "700"
+  font_weight: "750"
   padding: "1 20 1 6"
   components_left:
     - type: "workspaces"
@@ -50,23 +51,23 @@ window_rules:
 keybindings:
   # Shift focus in a given direction.
   - command: "focus left"
-    binding: "Alt+H"
+    bindings: ["Alt+H", "Alt+Left"]
   - command: "focus right"
-    binding: "Alt+L"
+    bindings: ["Alt+L", "Alt+Right"]
   - command: "focus up"
-    binding: "Alt+K"
+    bindings: ["Alt+K", "Alt+Up"]
   - command: "focus down"
-    binding: "Alt+J"
+    bindings: ["Alt+J", "Alt+Down"]
 
   # Move focused window in a given direction.
   - command: "move left"
-    binding: "Alt+Shift+H"
+    bindings: ["Alt+Shift+H", "Alt+Shift+Left"]
   - command: "move right"
-    binding: "Alt+Shift+L"
+    bindings: ["Alt+Shift+L", "Alt+Shift+Right"]
   - command: "move up"
-    binding: "Alt+Shift+K"
+    bindings: ["Alt+Shift+K", "Alt+Shift+Up"]
   - command: "move down"
-    binding: "Alt+Shift+J"
+    bindings: ["Alt+Shift+J", "Alt+Shift+Down"]
 
   # Resize focused window by a percentage or pixel amount.
   - command: "resize width -2%"
