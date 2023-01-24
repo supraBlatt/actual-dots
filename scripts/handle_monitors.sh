@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Hardcoded monitor names? 
-dp_monitor="DP-1-4"
-hdmi_monitor="HDMI-1-0"
-laptop_screen="eDP1"
+dp_monitor="DP-1-3"
+hdmi_monitor="HDMI-1-1"
+laptop_screen="eDP-1"
 
 # Check which monitors are connected
 monitors=$(xrandr -q | grep " connected" | cut -d" " -f1)

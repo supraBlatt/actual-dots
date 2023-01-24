@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+# notification daemon
+dunst &
+
+# waybar#!/usr/bin/bash
+waybar -s $HOME/.config/waybar/style.css &
+
+# static wallpaper
+swaybg -i ~/Media/wallpapers/city2.jpg -m fill & 
+
+# other
+/usr/lib/polkit-kde-authentication-agent-1 &
+hyprctl setcursor Bibata-Modern-Ice 24 &
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
