@@ -9,6 +9,10 @@ let
 in
 
 {
+  imports = [
+    ./home/kitty.nix
+  ];
+
   home.stateVersion = "23.05";
 
   home.packages = with pkgs; [
