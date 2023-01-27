@@ -9,6 +9,7 @@ in
     default = {
       system = "x86_64-linux";
       modules = [
+        inputs.home-manager.nixosModules.default
         inputs.hyprland.nixosModules.default
         ./hosts/default
       ];
