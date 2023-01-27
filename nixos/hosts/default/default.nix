@@ -2,6 +2,7 @@
   imports = [
     ./browser.nix
     ./gui.nix
+    ./packages.nix
     ./security.nix
     ./user.nix
   ];
