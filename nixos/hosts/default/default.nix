@@ -1,6 +1,7 @@
 {
   imports = [
     ./browser.nix
+    ./fonts.nix
     ./gui.nix
     ./packages.nix
     ./security.nix
