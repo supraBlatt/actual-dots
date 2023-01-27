@@ -17,6 +17,11 @@ in
             inputs.hyprland.homeManagerModules.default
           ];
         }
+        {
+          nix.registry = {
+            nixpkgs.flake = inputs.nixpkgs;
+          };
+        }
       ];
     };
   };
