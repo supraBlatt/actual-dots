@@ -27,8 +27,7 @@
     icon_position = left
     min_icon_size = 0
     max_icon_size = 32
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
-    browser = $HOME/bin/firefox-nightly -new-tab
+    browser = firefox -new-tab
     always_run_script = true
     title = Dunst
     class = Dunst
