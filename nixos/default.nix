@@ -12,6 +12,11 @@ in
         inputs.home-manager.nixosModules.default
         inputs.hyprland.nixosModules.default
         ./hosts/default
+        {
+          home-manager.users.yu.imports = [
+            inputs.hyprland.homeManagerModules.default
+          ];
+        }
       ];
     };
   };
