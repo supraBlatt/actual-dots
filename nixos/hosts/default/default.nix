@@ -3,6 +3,7 @@
     ./browser.nix
     ./fonts.nix
     ./gui.nix
+    ./nix.nix
     ./packages.nix
     ./security.nix
     ./user.nix
